@@ -1,5 +1,16 @@
 <center><h1><font face="Courier">Post a song!</font></h1></center>
 
+<% if @song && @song.errors.any? %>
+  <div>
+    <strong>Some issues with your song upload, let's see what's up:</strong>
+    <ul>
+      <% @song.errors.full_messages.each do |song| %>
+        <li><%= song %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <form method="post" action="/songs">
   <center><div><font face="Courier">
     <label>Title:</label>
