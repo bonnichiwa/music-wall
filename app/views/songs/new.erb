@@ -1,8 +1,8 @@
-<center><h1><font face="Courier">Post a song!</font></h1></center>
+<center><h1><font face="Helvetica Neue"> Post a song! </font></h1></center>
 
 <% if @song && @song.errors.any? %>
   <div>
-    <strong><font face="Courier">Some issues with your song upload, let's see what's up:<font/></strong>
+    <strong><font face="Helvetica Neue">Some issues with your song upload, let's see what's up:<font/></strong>
     <ul>
       <% @song.errors.full_messages.each do |song| %>
         <li><%= song %></li>
@@ -12,16 +12,16 @@
 <% end %>
 
 <form method="post" action="/songs">
-  <center><div><font face="Courier">
-    <label>Title:</label>
+  <center><div><font face="Helvetica Neue">
+    <label>♫ Title:</label>
      <input type="text" name="title" value="<%= @song && @song.title %>">
   </div>
   <div>
-    <label>Author:</label>
+    <label>♫ Author:</label>
     <input type="text" name="author" value="<%= @song && @song.author %>">
   </div>
   <div>
-    <label>Url:</label>
+    <label>♫ Url:</label>
     <input type="text" name="url" value="<%= @song && @song.url %>">
   </div>
   <div>
