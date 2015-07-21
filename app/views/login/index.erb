@@ -1,0 +1,18 @@
+<center><h1><font face="Helvetica Neue"> Log in with your awesome credentials!</font></h1></center>
+
+<center><% if @error %> Login does not exist, sorry!<% end %></center>
+
+
+<form method="post" action="/verify">
+  <center><div><font face="Helvetica Neue">
+    <label>Username:</label>
+    <input type="text" name="username">
+  </div>
+  <div>
+    <label>Password:</label>
+    <input type="password" name="password">
+  </div>
+  <div>
+    <input type="submit" value="Submit">
+  </font></div></center>
+</form>

@@ -1,0 +1,30 @@
+<center><h1><font face="Helvetica Neue"> Sign up with us for unlimited music goodness!</font></h1></center>
+
+<% if @user && @user.errors.any? %>
+  <center><div>
+    <strong><font face="Helvetica Neue">Some issues with your signup, let's see what's up:<font/></strong>
+    <ul>
+      <% @user.errors.full_messages.each do |signup| %>
+        <li><%= signup %></li>
+      <% end %>
+    </ul>
+  </div></center>
+<% end %>
+
+<form method="post" action="/signup/new">
+  <center><div><font face="Helvetica Neue">
+    <label>Name:</label>
+     <input type="text" name="name" value="<%= @user && @user.name %>">
+  </div>
+  <div>
+    <label>Username:</label>
+    <input type="text" name="username" value="<%= @user && @user.username %>">
+  </div>
+  <div>
+    <label>Password:</label>
+    <input type="password" name="password" value="<%= @user && @user.password %>">
+  </div>
+  <div>
+    <input type="submit" value="Submit">
+  </font></div></center>
+</form>
