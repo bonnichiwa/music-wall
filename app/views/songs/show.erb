@@ -4,9 +4,57 @@
   Author: <%= @song.author %>
 </p>
 
+<div class="container">
+  <p>
+    <% unless @song.url.nil? %>
+      <% regex = /youtube.com.*(?:\/|v=)([^&$]+)/ %>
+      <% youtube_id = @song.url.match(regex)[1] %>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/<%=youtube_id%>" frameborder="0" allowfullscreen></iframe>
+    <% else %>
+      <%= @song.url %>
+    <% end %>
+  </p>
+</div>
+
 <p>
-  <a href="http://<%= @song.url %>">Listen Now</a>
+  Uploaded by: <%= @song.created_by_user %>
 </p>
+
+<% if session[:username] && @reviews.find_by(username: session[:username]).nil? %>
+<form method="post" action="/review">
+  <center><div><font face="Helvetica Neue">
+    <label>Review:</label>
+     <input type="text" name="note" value="<%= @new_review.note %>">
+     <input type="hidden" name="song_id" value="<%= @song.id %>">
+     <input type="hidden" name="username" value="<%= session[:username] %>">
+  </div>
+    <input type="submit" value="Submit">
+  </font></div></center></form>
+<% else %>
+  <h6><i>Thanks for the review!</i></h6>
+<% end %>
+
+<% if @reviews.any? %>
+  <% @reviews.each do |review| %>
+  <h5><u><b>User Review:</b></u></h5>
+  <h6><%= review.note %></h6>
+  <h5><u><b>Written by:</b></u></h5>
+  <h6><%= review.username %></h6>
+  <h5><u><b>Commented at:</b></u></h5>
+  <h6><%= review.created_at %></h6>
+  <% if session[:username] == review.username %>
+    <form method="post" action="/review/delete">
+    <center><div><font face="Helvetica Neue">
+    <input type="hidden" name="review_id" value="<%= review.id %>">
+  </div>
+    <input type="submit" value="Delete">
+  </font></div></center></form>
+<% end %>
+
+  <h5> - - - - - - - - - - - - </h5>
+  <% end %>
+<% end %>
+
 
 <hr/>
 <a href="/songs">Back to All Songs</a></center>

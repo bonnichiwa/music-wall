@@ -1,13 +1,28 @@
 <center><h3>Trackster Playlist</h3></center>
 
+<% count = 0 %>
+
 <% @songs.each do |song| %>
   <center><font face="Helvetica Neue"<div class="song">
+    #<%= count += 1 %>
     <h3>♫ <a href="/songs/<%= song.id %>"><%= song.title %></a> <small>[ Artist: <%= song.author %> ]</small> ♫</h3>
     <p>
       <a href="http://<%= song.url %>">Listen Now</a>
     </p>
     <p>
       <h6>Created at: <%= song.created_at %></h6>
+      <h6>Uploaded by: <%= song.created_by_user %></h6>
+    </p>
+    <p>
+      <% if session[:username] && Like.find_by(username: session[:username], song_id: song.id).nil? %>
+      <form method='post' action="/like">
+      <input type="hidden" name="song_id" value="<%= song.id %>">
+      <input class="btn" type="submit" value="Like!"></form>
+      <% end %>
+    </p>
+
+    <p><small>Total Likes: </small><%=Like.where(song_id:song.id).count%></p>
+      
     <p>
       - - - - - - - - - - - - 
     </p>
